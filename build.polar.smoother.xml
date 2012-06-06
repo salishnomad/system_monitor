@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<project name="svn-polar.smoother" basedir="." default="help">
+  
+  <property file="build.properties"/>
+
+  <property name="polar.smoother.output.dir" value="polar.smoother.classes"/>
+  <property name="co.dir" value="src.polar.smoother"/>
+  
+  <!-- path to the svnant libraries. Usually they will be located in ANT_HOME/lib -->
+  <path id="project.classpath">
+	<fileset dir="${lib.dir}">
+	  <include name="**/*.jar"/>
+	</fileset>
+  </path>  
+
+  <path id="classpath">
+	<fileset dir="all-3rd-party">
+	  <include name="**/*.jar"/>
+	</fileset>
+  </path>  
+
+  <target name="clean">
+    <delete dir="${co.dir}"/>  
+    <delete dir="${polar.smoother.output.dir}"/>  
+  </target>
+
+  <target name="all" depends="clean, co.polar.smoother.utilities, compile.polar.smoother, copy.polar.smoother, archive.polar.smoother"/>
+
+  <target name="checkout.polar.smoother.utilities">
+    <echo>Checking out polar.smootherUtilities</echo>
+	<!--svn><checkout url="http://polar.smootherutilities.googlecode.com/svn/trunk polar.smootherutilities-read-only" path="src_polar.smoother" /></svn-->
+	<svn><checkout url="http://polar-smoother.googlecode.com/svn/trunk/" path="src_polar.smoother" /></svn>
+  </target>
+  
+  <target name="co.polar.smoother.utilities">
+    <exec executable="${svn.exec}" searchpath="yes">
+      <arg value="checkout"/>
+      <arg value="http://polar-smoother.googlecode.com/svn/trunk/"/>
+      <arg value="${co.dir}"/>
+    </exec>
+  </target>
+  
+  <target name="compile.polar.smoother" description="Compile Java source files" depends="co.polar.smoother.utilities">
+    <mkdir dir="${polar.smoother.output.dir}"/>
+    <path id="polar.smoother.classpath">
+      <path refid="classpath"/>
+      <pathelement location="all-libs/coreutilities.jar"/>
+    </path>
+    <javac destdir="${polar.smoother.output.dir}" classpathref="polar.smoother.classpath"
+           debug="${javac.debug}" nowarn="${javac.nowarn}"
+           deprecation="${javac.deprecation}" encoding="Cp1252" source="1.5"
+           target="1.5">
+      <compilerarg value="-Xlint:unchecked"/>
+      <src path="${co.dir}/src"/>
+    </javac>
+  </target>
+  
+  <target name="copy.polar.smoother" description="Copy files to output directory" depends="compile.polar.smoother">
+    <patternset id="copy.patterns">
+      <include name="**/*.gif"/>
+      <include name="**/*.jpg"/>
+      <include name="**/*.jpeg"/>
+      <include name="**/*.png"/>
+      <include name="**/*.properties"/>
+      <include name="**/*.xml"/>
+      <include name="**/*-apf.xml"/>
+      <include name="**/*.ejx"/>
+      <include name="**/*.xcfg"/>
+      <include name="**/*.cpx"/>
+      <include name="**/*.dcx"/>
+      <include name="**/*.sva"/>
+      <include name="**/*.wsdl"/>
+      <include name="**/*.ini"/>
+      <include name="**/*.tld"/>
+      <include name="**/*.tag"/>
+      <include name="**/*.xlf"/>
+      <include name="**/*.xsl"/>
+      <include name="**/*.xsd"/>
+    </patternset>
+    <copy todir="${polar.smoother.output.dir}">
+      <fileset dir="${co.dir}/src">
+        <patternset refid="copy.patterns"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="archive.polar.smoother" depends="copy.polar.smoother">
+    <exec executable="cmd" output="manifest.mf" append="false" osfamily="windows">
+      <arg value="/c"/>
+      <arg value="echo"/>
+      <arg value="Compile-Date:"/>
+      <arg value="%DATE%"/>
+      <arg value="%TIME%"/>
+    </exec>
+    <mkdir dir="all-libs"/>
+    <jar destfile="all-libs/polar.smoother.jar" compress="true" manifest="manifest.mf">
+      <fileset dir="${polar.smoother.output.dir}">
+        <exclude name="**/*.cdi"/>
+      </fileset>
+    </jar>
+  </target>
+
+</project>
