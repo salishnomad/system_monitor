@@ -42,6 +42,7 @@
       <pathelement location="all-libs/chartcomponents.jar"/>
       <pathelement location="all-libs/nmeaparser.jar"/>
       <pathelement location="all-libs/nmeareader.jar"/>
+      <pathelement location="all-libs/polar.smoother.jar"/>
 	  <pathelement location="all-3rd-party/rxtx.distrib/RXTXcomm.jar"/>
     </path>
     <javac destdir="${ww.output.dir}" classpathref="ww.classpath"
@@ -74,6 +75,7 @@
       <include name="**/*.xlf"/>
       <include name="**/*.xsl"/>
       <include name="**/*.xsd"/>
+      <include name="**/*.ttf"/>
     </patternset>
     <copy todir="${ww.output.dir}">
       <fileset dir="${co.dir}/src">
@@ -83,15 +85,15 @@
   </target>
   
   <target name="archive.ww" depends="copy.ww">
-    <!--exec executable="cmd" output="manifest.mf" append="false" os="Windows XP">
+    <exec executable="cmd" output="manifest.mf" append="false" osfamily="windows">
       <arg value="/c"/>
       <arg value="echo"/>
       <arg value="Compile-Date:"/>
       <arg value="%DATE%"/>
       <arg value="%TIME%"/>
-    </exec-->
+    </exec>
     <mkdir dir="all-libs"/>
-    <jar destfile="all-libs/ww.jar" compress="true"> <!-- manifest="manifest.mf"-->
+    <jar destfile="all-libs/ww.jar" compress="true" manifest="manifest.mf">
       <fileset dir="${ww.output.dir}">
         <exclude name="**/*.cdi"/>
       </fileset>

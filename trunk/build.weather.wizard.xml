@@ -3,13 +3,14 @@
   
   <property file="build.properties"/>
   
-  <target name="all" depends="core, parser, charts, nmea.reader, weather.wizard"/>
+  <target name="all" depends="core, parser, charts, nmea.reader, polar.smoother, weather.wizard"/>
   
   <target name="clean.all">
     <ant antfile="build.core.xml" target="clean" dir="."/>  
     <ant antfile="build.parser.xml" target="clean" dir="."/>  
     <ant antfile="build.charts.xml" target="clean" dir="."/>  
     <ant antfile="build.nmea.reader.xml" target="clean" dir="."/>  
+    <ant antfile="build.polar.smoother.xml" target="clean" dir="."/>  
     <ant antfile="build.ww.xml" target="clean" dir="."/>  
     <delete dir="classes"/>  
     <delete dir="all-libs"/>  
@@ -23,6 +24,11 @@
   <target name="parser">
     <echo message="Making NMEAParser"/>
     <ant antfile="build.parser.xml" target="all" dir="."/>  
+  </target>
+
+  <target name="polar.smoother">
+    <echo message="Making Polar Smoother"/>
+    <ant antfile="build.polar.smoother.xml" target="all" dir="."/>  
   </target>
 
   <target name="nmea.reader">
@@ -40,6 +46,75 @@
     <ant antfile="build.ww.xml" target="all" dir="."/>  
   </target>
 
+  <target name="run.config">
+    <echo message="Copying configuration files"/>
+	<mkdir dir="faxDir"/>
+	<mkdir dir="gribDir"/>
+	<mkdir dir="compositeDir"/>
+	<mkdir dir="patterns"/>
+    <patternset id="places.xml">
+      <include name="**/places.xml"/>
+    </patternset>
+    <patternset id="dyn.fax.xml">
+      <include name="**/dyn.fax.xml"/>
+    </patternset>
+
+    <!--copy todir=".">
+      <fileset dir="src.chart.lib/sql" >
+        <patternset refid="places.xml"/>
+      </fileset>
+    </copy-->
+    <copy todir=".">
+      <fileset dir="src.ww" >
+        <patternset refid="dyn.fax.xml"/>
+        <patternset refid="places.xml"/>
+      </fileset>
+    </copy>
+
+  </target>
+
+  <target name="run.ww" depends="run.config">
+	<path id="3rd.classpath">
+	  <fileset dir="all-3rd-party">
+	    <include name="**/*.jar"/>
+	  </fileset>
+	</path>  
+	<path id="classpath">
+	  <fileset dir="all-libs">
+	    <include name="**/*.jar"/>
+	  </fileset>
+	</path>  
+    <path id="desktop.classpath">
+      <path refid="3rd.classpath"/>
+      <path refid="classpath"/>
+    </path>
+    <java classname="main.splash.Splasher" dir="." fork="yes">
+      <classpath refid="desktop.classpath"/>
+	  <jvmarg line="-client -Djava.library.path=all-3rd-party/rxtx.distrib/${system.type}"/>
+    </java>
+  </target>
+
+  <target name="run.ps" depends="run.config">
+	<path id="3rd.classpath">
+	  <fileset dir="all-3rd-party">
+	    <include name="**/*.jar"/>
+	  </fileset>
+	</path>  
+	<path id="classpath">
+	  <fileset dir="all-libs">
+	    <include name="**/*.jar"/>
+	  </fileset>
+	</path>  
+    <path id="desktop.classpath">
+      <path refid="3rd.classpath"/>
+      <path refid="classpath"/>
+    </path>
+    <java classname="polarmaker.polars.main.PolarSmoother" dir="." fork="yes">
+      <classpath refid="desktop.classpath"/>
+	  <jvmarg line="-client"/>
+    </java>
+  </target>
+
   <target name="help">
     <echo>
       Will check out the required project from http://code.google.com,
@@ -49,6 +124,7 @@
       - coreutilities
       - javanmeaparser
       - chartcomponents
+	  - and more!
       
       The target named "all" takes care of everything.
       
