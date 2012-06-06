@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<project name="svn-navigation-desktop" basedir="." default="help">
+  
+  <property file="build.properties"/>
+
+  <property name="navigation.desktop.output.dir" value="navigation.desktop.classes"/>
+  <property name="co.dir" value="src.navigation.desktop"/>
+  
+  <!-- path to the svnant libraries. Usually they will be located in ANT_HOME/lib -->
+  <path id="project.classpath">
+	<fileset dir="${lib.dir}">
+	  <include name="**/*.jar"/>
+	</fileset>
+  </path>  
+
+  <path id="classpath">
+	<fileset dir="all-3rd-party">
+	  <include name="**/*.jar"/>
+	</fileset>
+  </path>  
+
+  <target name="clean">
+    <delete dir="${co.dir}"/>  
+    <delete dir="${navigation.desktop.output.dir}"/>  
+  </target>
+  
+  <target name="all" depends="clean, co.navigation.desktop, compile.navigation.desktop, copy.navigation.desktop, archive.navigation.desktop"/>
+
+  <target name="co.navigation.desktop">
+    <exec executable="${svn.exec}" searchpath="yes">
+      <arg value="checkout"/>
+      <arg value="http://navigation-desktop.googlecode.com/svn/trunk/"/>
+      <arg value="${co.dir}"/>
+    </exec>
+  </target>
+  
+  <target name="compile.navigation.desktop" description="Compile Java source files" depends="co.navigation.desktop">
+    <mkdir dir="${navigation.desktop.output.dir}"/>
+    <path id="navigation.desktop.classpath">
+      <path refid="classpath"/>
+      <pathelement location="all-libs/coreutilities.jar"/>
+      <pathelement location="all-libs/almanac.jar"/>
+      <pathelement location="all-libs/chartcomponents.jar"/>
+      <pathelement location="all-libs/nmeaparser.jar"/>
+      <pathelement location="all-libs/nmeareader.jar"/>
+      <pathelement location="all-libs/almanac.tools.jar"/>
+      <pathelement location="all-libs/tideengine.jar"/>
+      <pathelement location="all-libs/te.impl.jar"/>
+      <pathelement location="all-libs/star.finder.jar"/>
+      <pathelement location="all-libs/sailfax.jar"/>
+      <pathelement location="all-libs/chart.lib.jar"/>
+      <pathelement location="all-libs/google.locator.jar"/>
+    </path>
+    <javac destdir="${navigation.desktop.output.dir}" classpathref="navigation.desktop.classpath"
+           debug="${javac.debug}" nowarn="${javac.nowarn}"
+           deprecation="${javac.deprecation}" encoding="Cp1252" source="1.5"
+           target="1.5">
+      <compilerarg value="-Xlint:unchecked"/>
+      <src path="${co.dir}/src"/>
+    </javac>
+  </target>
+  
+  <target name="copy.navigation.desktop" description="Copy files to output directory" depends="compile.navigation.desktop">
+    <patternset id="copy.patterns">
+      <include name="**/*.gif"/>
+      <include name="**/*.jpg"/>
+      <include name="**/*.jpeg"/>
+      <include name="**/*.png"/>
+      <include name="**/*.properties"/>
+      <include name="**/*.xml"/>
+      <include name="**/*-apf.xml"/>
+      <include name="**/*.ejx"/>
+      <include name="**/*.xcfg"/>
+      <include name="**/*.cpx"/>
+      <include name="**/*.dcx"/>
+      <include name="**/*.sva"/>
+      <include name="**/*.wsdl"/>
+      <include name="**/*.ini"/>
+      <include name="**/*.tld"/>
+      <include name="**/*.tag"/>
+      <include name="**/*.xlf"/>
+      <include name="**/*.xsl"/>
+      <include name="**/*.xsd"/>
+      <include name="**/*.ttf"/>
+    </patternset>
+    <copy todir="${navigation.desktop.output.dir}">
+      <fileset dir="${co.dir}/src">
+        <patternset refid="copy.patterns"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="archive.navigation.desktop" depends="copy.navigation.desktop">
+    <exec executable="cmd" output="manifest.mf" append="false" osfamily="windows">
+      <arg value="/c"/>
+      <arg value="echo"/>
+      <arg value="Compile-Date:"/>
+      <arg value="%DATE%"/>
+      <arg value="%TIME%"/>
+    </exec>
+    <mkdir dir="all-libs"/>
+    <jar destfile="all-libs/navigation.desktop.jar" compress="true" manifest="manifest.mf">
+      <fileset dir="${navigation.desktop.output.dir}">
+        <exclude name="**/*.cdi"/>
+      </fileset>
+    </jar>
+  </target>
+</project>
