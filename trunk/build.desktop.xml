@@ -98,6 +98,9 @@
       <arg value="%DATE%"/>
       <arg value="%TIME%"/>
     </exec>
+    <exec executable="date" output="manifest.mf" append="false" osfamily="unix">
+      <arg value="+Compile-Date:%a %d/%m/%Y %T"/>
+    </exec>
     <mkdir dir="all-libs"/>
     <jar destfile="all-libs/navigation.desktop.jar" compress="true" manifest="manifest.mf">
       <fileset dir="${navigation.desktop.output.dir}">
