@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<project name="svn-star-finder" basedir="." default="help">
+  
+  <property file="build.properties"/>
+
+  <property name="star.finder.output.dir" value="star.finder.classes"/>
+  <property name="co.dir" value="src.star.finder"/>
+  
+  <!-- path to the svnant libraries. Usually they will be located in ANT_HOME/lib -->
+  <path id="project.classpath">
+	<fileset dir="${lib.dir}">
+	  <include name="**/*.jar"/>
+	</fileset>
+  </path>  
+
+  <path id="classpath">
+	<fileset dir="all-3rd-party">
+	  <include name="**/*.jar"/>
+	</fileset>
+  </path>  
+
+  <target name="clean">
+    <delete dir="${co.dir}"/>  
+    <delete dir="${star.finder.output.dir}"/>  
+  </target>
+  
+  <target name="all" depends="clean, co.star.finder, compile.star.finder, copy.star.finder, archive.star.finder"/>
+
+  <target name="co.star.finder">
+    <exec executable="${svn.exec}" searchpath="yes">
+      <arg value="checkout"/>
+      <arg value="http://star-finder.googlecode.com/svn/trunk/"/>
+      <arg value="${co.dir}"/>
+    </exec>
+  </target>
+  
+  <target name="compile.star.finder" description="Compile Java source files" depends="co.star.finder">
+    <mkdir dir="${star.finder.output.dir}"/>
+    <path id="star.finder.classpath">
+      <path refid="classpath"/>
+      <pathelement location="all-libs/coreutilities.jar"/>
+      <pathelement location="all-libs/nmeaparser.jar"/>
+      <pathelement location="all-libs/nmeareader.jar"/>
+      <pathelement location="all-libs/almanac.jar"/>
+      <pathelement location="all-libs/almanac.tools.jar"/>
+    </path>
+    <javac destdir="${star.finder.output.dir}" classpathref="star.finder.classpath"
+           debug="${javac.debug}" nowarn="${javac.nowarn}"
+           deprecation="${javac.deprecation}" encoding="Cp1252" source="1.5"
+           target="1.5">
+      <compilerarg value="-Xlint:unchecked"/>
+      <src path="${co.dir}/src"/>
+    </javac>
+  </target>
+  
+  <target name="copy.star.finder" description="Copy files to output directory" depends="compile.star.finder">
+    <patternset id="copy.patterns">
+      <include name="**/*.gif"/>
+      <include name="**/*.jpg"/>
+      <include name="**/*.jpeg"/>
+      <include name="**/*.png"/>
+      <include name="**/*.properties"/>
+      <include name="**/*.xml"/>
+      <include name="**/*-apf.xml"/>
+      <include name="**/*.ejx"/>
+      <include name="**/*.xcfg"/>
+      <include name="**/*.cpx"/>
+      <include name="**/*.dcx"/>
+      <include name="**/*.sva"/>
+      <include name="**/*.wsdl"/>
+      <include name="**/*.ini"/>
+      <include name="**/*.tld"/>
+      <include name="**/*.tag"/>
+      <include name="**/*.xlf"/>
+      <include name="**/*.xsl"/>
+      <include name="**/*.xsd"/>
+    </patternset>
+    <copy todir="${star.finder.output.dir}">
+      <fileset dir="${co.dir}/src">
+        <patternset refid="copy.patterns"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="archive.star.finder" depends="copy.star.finder">
+    <!--exec executable="cmd" output="manifest.mf" append="false" os="Windows XP">
+      <arg value="/c"/>
+      <arg value="echo"/>
+      <arg value="Compile-Date:"/>
+      <arg value="%DATE%"/>
+      <arg value="%TIME%"/>
+    </exec-->
+    <mkdir dir="all-libs"/>
+    <jar destfile="all-libs/star.finder.jar" compress="true"> <!-- manifest="manifest.mf"-->
+      <fileset dir="${star.finder.output.dir}">
+        <exclude name="**/*.cdi"/>
+      </fileset>
+    </jar>
+  </target>
+
+</project>

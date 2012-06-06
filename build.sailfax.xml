@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<project name="svn-sailfax" basedir="." default="help">
+  
+  <property file="build.properties"/>
+
+  <property name="sailfax.output.dir" value="sailfax.classes"/>
+  <property name="co.dir" value="src.sailfax"/>
+  
+  <!-- path to the svnant libraries. Usually they will be located in ANT_HOME/lib -->
+  <path id="project.classpath">
+	<fileset dir="${lib.dir}">
+	  <include name="**/*.jar"/>
+	</fileset>
+  </path>  
+
+  <path id="classpath">
+	<fileset dir="all-3rd-party">
+	  <include name="**/*.jar"/>
+	</fileset>
+  </path>  
+
+  <target name="clean">
+    <delete dir="${co.dir}"/>  
+    <delete dir="${sailfax.output.dir}"/>  
+  </target>
+  
+  <target name="all" depends="clean, co.sailfax, compile.sailfax, copy.sailfax, archive.sailfax"/>
+
+  <target name="co.sailfax">
+    <exec executable="${svn.exec}" searchpath="yes">
+      <arg value="checkout"/>
+      <arg value="http://sailfax.googlecode.com/svn/trunk/"/>
+      <arg value="${co.dir}"/>
+    </exec>
+  </target>
+  
+  <target name="compile.sailfax" description="Compile Java source files" depends="co.sailfax">
+    <mkdir dir="${sailfax.output.dir}"/>
+    <path id="sailfax.classpath">
+      <path refid="classpath"/>
+      <pathelement location="all-libs/coreutilities.jar"/>
+      <pathelement location="all-libs/nmeaparser.jar"/>
+      <pathelement location="all-libs/chartcomponents.jar"/>
+    </path>
+    <javac destdir="${sailfax.output.dir}" classpathref="sailfax.classpath"
+           debug="${javac.debug}" nowarn="${javac.nowarn}"
+           deprecation="${javac.deprecation}" encoding="Cp1252" source="1.5"
+           target="1.5">
+      <compilerarg value="-Xlint:unchecked"/>
+      <src path="${co.dir}/src"/>
+    </javac>
+  </target>
+  
+  <target name="copy.sailfax" description="Copy files to output directory" depends="compile.sailfax">
+    <patternset id="copy.patterns">
+      <include name="**/*.gif"/>
+      <include name="**/*.jpg"/>
+      <include name="**/*.jpeg"/>
+      <include name="**/*.png"/>
+      <include name="**/*.properties"/>
+      <include name="**/*.xml"/>
+      <include name="**/*-apf.xml"/>
+      <include name="**/*.ejx"/>
+      <include name="**/*.xcfg"/>
+      <include name="**/*.cpx"/>
+      <include name="**/*.dcx"/>
+      <include name="**/*.sva"/>
+      <include name="**/*.wsdl"/>
+      <include name="**/*.ini"/>
+      <include name="**/*.tld"/>
+      <include name="**/*.tag"/>
+      <include name="**/*.xlf"/>
+      <include name="**/*.xsl"/>
+      <include name="**/*.xsd"/>
+    </patternset>
+    <copy todir="${sailfax.output.dir}">
+      <fileset dir="${co.dir}/src">
+        <patternset refid="copy.patterns"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="archive.sailfax" depends="copy.sailfax">
+    <!--exec executable="cmd" output="manifest.mf" append="false" os="Windows XP">
+      <arg value="/c"/>
+      <arg value="echo"/>
+      <arg value="Compile-Date:"/>
+      <arg value="%DATE%"/>
+      <arg value="%TIME%"/>
+    </exec-->
+    <mkdir dir="all-libs"/>
+    <jar destfile="all-libs/sailfax.jar" compress="true"> <!-- manifest="manifest.mf"-->
+      <fileset dir="${sailfax.output.dir}">
+        <exclude name="**/*.cdi"/>
+      </fileset>
+    </jar>
+  </target>
+
+</project>

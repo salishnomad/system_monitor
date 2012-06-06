@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<project name="svn-nmea-reader" basedir="." default="help">
+  
+  <property file="build.properties"/>
+
+  <property name="nmeareader.output.dir" value="nmeareader.classes"/>
+  <property name="co.dir" value="src.nmeareader"/>
+  
+  <!-- path to the svnant libraries. Usually they will be located in ANT_HOME/lib -->
+  <path id="project.classpath">
+	<fileset dir="${lib.dir}">
+	  <include name="**/*.jar"/>
+	</fileset>
+  </path>  
+
+  <path id="classpath">
+	<fileset dir="all-3rd-party">
+	  <include name="**/*.jar"/>
+	</fileset>
+  </path>  
+
+  <target name="clean">
+    <delete dir="${co.dir}"/>  
+    <delete dir="${nmeareader.output.dir}"/>  
+  </target>
+  
+  <target name="all" depends="clean, co.nmeareader, compile.nmeareader, copy.nmeareader, archive.nmeareader"/>
+
+  <target name="co.nmeareader">
+    <exec executable="${svn.exec}" searchpath="yes">
+      <arg value="checkout"/>
+      <arg value="http://fullnmeaconsole.googlecode.com/svn/trunk/"/>
+      <arg value="${co.dir}"/>
+    </exec>
+  </target>
+  
+  <target name="compile.nmeareader" description="Compile Java source files" depends="co.nmeareader">
+    <mkdir dir="${nmeareader.output.dir}"/>
+    <path id="nmeareader.classpath">
+      <path refid="classpath"/>
+      <pathelement location="all-libs/coreutilities.jar"/>
+      <pathelement location="all-libs/chartcomponents.jar"/>
+      <pathelement location="all-libs/nmeaparser.jar"/>
+	  <pathelement location="all-3rd-party/rxtx.distrib/RXTXcomm.jar"/>
+    </path>
+    <javac destdir="${nmeareader.output.dir}" classpathref="nmeareader.classpath"
+           debug="${javac.debug}" nowarn="${javac.nowarn}"
+           deprecation="${javac.deprecation}" encoding="Cp1252" source="1.5"
+           target="1.5">
+      <compilerarg value="-Xlint:unchecked"/>
+      <src path="${co.dir}/src"/>
+    </javac>
+  </target>
+  
+  <target name="copy.nmeareader" description="Copy files to output directory" depends="compile.nmeareader">
+    <patternset id="copy.patterns">
+      <include name="**/*.gif"/>
+      <include name="**/*.jpg"/>
+      <include name="**/*.jpeg"/>
+      <include name="**/*.png"/>
+      <include name="**/*.properties"/>
+      <include name="**/*.xml"/>
+      <include name="**/*-apf.xml"/>
+      <include name="**/*.ejx"/>
+      <include name="**/*.xcfg"/>
+      <include name="**/*.cpx"/>
+      <include name="**/*.dcx"/>
+      <include name="**/*.sva"/>
+      <include name="**/*.wsdl"/>
+      <include name="**/*.ini"/>
+      <include name="**/*.tld"/>
+      <include name="**/*.tag"/>
+      <include name="**/*.xlf"/>
+      <include name="**/*.xsl"/>
+      <include name="**/*.xsd"/>
+      <include name="**/*.ttf"/>
+    </patternset>
+    <copy todir="${nmeareader.output.dir}">
+      <fileset dir="${co.dir}/src">
+        <patternset refid="copy.patterns"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="archive.nmeareader" depends="copy.nmeareader">
+    <!--exec executable="cmd" output="manifest.mf" append="false" os="Windows XP">
+      <arg value="/c"/>
+      <arg value="echo"/>
+      <arg value="Compile-Date:"/>
+      <arg value="%DATE%"/>
+      <arg value="%TIME%"/>
+    </exec-->
+    <mkdir dir="all-libs"/>
+    <jar destfile="all-libs/nmeareader.jar" compress="true"> <!-- manifest="manifest.mf"-->
+      <fileset dir="${nmeareader.output.dir}">
+        <exclude name="**/*.cdi"/>
+      </fileset>
+    </jar>
+  </target>
+
+</project>

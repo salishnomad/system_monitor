@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<project name="svn-weather-wizard" basedir="." default="help">
+  
+  <property file="build.properties"/>
+
+  <property name="ww.output.dir" value="ww.classes"/>
+  <property name="co.dir" value="src.ww"/>
+  
+  <!-- path to the svnant libraries. Usually they will be located in ANT_HOME/lib -->
+  <path id="project.classpath">
+	<fileset dir="${lib.dir}">
+	  <include name="**/*.jar"/>
+	</fileset>
+  </path>  
+
+  <path id="classpath">
+	<fileset dir="all-3rd-party">
+	  <include name="**/*.jar"/>
+	</fileset>
+  </path>  
+
+  <target name="clean">
+    <delete dir="${co.dir}"/>  
+    <delete dir="${ww.output.dir}"/>  
+  </target>
+  
+  <target name="all" depends="clean, co.ww, compile.ww, copy.ww, archive.ww"/>
+
+  <target name="co.ww">
+    <exec executable="${svn.exec}" searchpath="yes">
+      <arg value="checkout"/>
+      <arg value="http://weatherwizard.googlecode.com/svn/trunk/"/>
+      <arg value="${co.dir}"/>
+    </exec>
+  </target>
+  
+  <target name="compile.ww" description="Compile Java source files" depends="co.ww">
+    <mkdir dir="${ww.output.dir}"/>
+    <path id="ww.classpath">
+      <path refid="classpath"/>
+      <pathelement location="all-libs/coreutilities.jar"/>
+      <pathelement location="all-libs/chartcomponents.jar"/>
+      <pathelement location="all-libs/nmeaparser.jar"/>
+      <pathelement location="all-libs/nmeareader.jar"/>
+	  <pathelement location="all-3rd-party/rxtx.distrib/RXTXcomm.jar"/>
+    </path>
+    <javac destdir="${ww.output.dir}" classpathref="ww.classpath"
+           debug="${javac.debug}" nowarn="${javac.nowarn}"
+           deprecation="${javac.deprecation}" encoding="Cp1252" source="1.5"
+           target="1.5">
+      <compilerarg value="-Xlint:unchecked"/>
+      <src path="${co.dir}/src"/>
+    </javac>
+  </target>
+  
+  <target name="copy.ww" description="Copy files to output directory" depends="compile.ww">
+    <patternset id="copy.patterns">
+      <include name="**/*.gif"/>
+      <include name="**/*.jpg"/>
+      <include name="**/*.jpeg"/>
+      <include name="**/*.png"/>
+      <include name="**/*.properties"/>
+      <include name="**/*.xml"/>
+      <include name="**/*-apf.xml"/>
+      <include name="**/*.ejx"/>
+      <include name="**/*.xcfg"/>
+      <include name="**/*.cpx"/>
+      <include name="**/*.dcx"/>
+      <include name="**/*.sva"/>
+      <include name="**/*.wsdl"/>
+      <include name="**/*.ini"/>
+      <include name="**/*.tld"/>
+      <include name="**/*.tag"/>
+      <include name="**/*.xlf"/>
+      <include name="**/*.xsl"/>
+      <include name="**/*.xsd"/>
+    </patternset>
+    <copy todir="${ww.output.dir}">
+      <fileset dir="${co.dir}/src">
+        <patternset refid="copy.patterns"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="archive.ww" depends="copy.ww">
+    <!--exec executable="cmd" output="manifest.mf" append="false" os="Windows XP">
+      <arg value="/c"/>
+      <arg value="echo"/>
+      <arg value="Compile-Date:"/>
+      <arg value="%DATE%"/>
+      <arg value="%TIME%"/>
+    </exec-->
+    <mkdir dir="all-libs"/>
+    <jar destfile="all-libs/ww.jar" compress="true"> <!-- manifest="manifest.mf"-->
+      <fileset dir="${ww.output.dir}">
+        <exclude name="**/*.cdi"/>
+      </fileset>
+    </jar>
+  </target>
+
+</project>

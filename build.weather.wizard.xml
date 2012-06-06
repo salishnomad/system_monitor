@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<project name="svn-oliv" basedir="." default="help">
+  
+  <property file="build.properties"/>
+  
+  <target name="all" depends="core, parser, charts, nmea.reader, weather.wizard"/>
+  
+  <target name="clean.all">
+    <ant antfile="build.core.xml" target="clean" dir="."/>  
+    <ant antfile="build.parser.xml" target="clean" dir="."/>  
+    <ant antfile="build.charts.xml" target="clean" dir="."/>  
+    <ant antfile="build.nmea.reader.xml" target="clean" dir="."/>  
+    <ant antfile="build.ww.xml" target="clean" dir="."/>  
+    <delete dir="classes"/>  
+    <delete dir="all-libs"/>  
+  </target>
+  
+  <target name="core">
+    <echo message="Making CoreUtilities"/>
+    <ant antfile="build.core.xml" target="all" dir="."/>  
+  </target>
+  
+  <target name="parser">
+    <echo message="Making NMEAParser"/>
+    <ant antfile="build.parser.xml" target="all" dir="."/>  
+  </target>
+
+  <target name="nmea.reader">
+    <echo message="Making NMEAReader"/>
+    <ant antfile="build.nmea.reader.xml" target="all" dir="."/>  
+  </target>
+
+  <target name="charts">
+    <echo message="Making ChartComponents"/>
+    <ant antfile="build.charts.xml" target="all" dir="."/>  
+  </target>
+
+  <target name="weather.wizard">
+    <echo message="Making Weather Wizard"/>
+    <ant antfile="build.ww.xml" target="all" dir="."/>  
+  </target>
+
+  <target name="help">
+    <echo>
+      Will check out the required project from http://code.google.com,
+      compile and archive them.
+      
+      The required projects are:
+      - coreutilities
+      - javanmeaparser
+      - chartcomponents
+      
+      The target named "all" takes care of everything.
+      
+      Some 3rd party jar files are required:
+      - xmlparserv2.jar from Oracle.
+	  - JavaAdvancedImaging from Sun.
+      - RXTXcomm.jar, for the Java Communication API (Serial ports access).
+      All are available for free.
+    </echo>
+  </target>
+
+</project>

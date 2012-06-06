@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<project name="svn-google-locator" basedir="." default="help">
+  
+  <property file="build.properties"/>
+
+  <property name="google.locator.output.dir" value="google.locator.classes"/>
+  <property name="co.dir" value="src.google.locator"/>
+  
+  <!-- path to the svnant libraries. Usually they will be located in ANT_HOME/lib -->
+  <path id="project.classpath">
+	<fileset dir="${lib.dir}">
+	  <include name="**/*.jar"/>
+	</fileset>
+  </path>  
+
+  <path id="classpath">
+	<fileset dir="all-3rd-party">
+	  <include name="**/*.jar"/>
+	</fileset>
+  </path>  
+
+  <target name="clean">
+    <delete dir="${co.dir}"/>  
+    <delete dir="${google.locator.output.dir}"/>  
+  </target>
+  
+  <target name="all" depends="clean, co.google.locator, compile.google.locator, copy.google.locator, archive.google.locator"/>
+
+  <target name="co.google.locator">
+    <exec executable="${svn.exec}" searchpath="yes">
+      <arg value="checkout"/>
+      <arg value="http://google-locator.googlecode.com/svn/trunk/"/>
+      <arg value="${co.dir}"/>
+    </exec>
+  </target>
+  
+  <target name="compile.google.locator" description="Compile Java source files" depends="co.google.locator">
+    <mkdir dir="${google.locator.output.dir}"/>
+    <path id="google.locator.classpath">
+      <path refid="classpath"/>
+      <pathelement location="all-libs/coreutilities.jar"/>
+      <pathelement location="all-libs/nmeaparser.jar"/>
+      <pathelement location="all-libs/nmeareader.jar"/>
+      <pathelement location="all-libs/chartcomponents.jar"/>
+    </path>
+    <javac destdir="${google.locator.output.dir}" classpathref="google.locator.classpath"
+           debug="${javac.debug}" nowarn="${javac.nowarn}"
+           deprecation="${javac.deprecation}" encoding="Cp1252" source="1.5"
+           target="1.5">
+      <compilerarg value="-Xlint:unchecked"/>
+      <src path="${co.dir}/src"/>
+    </javac>
+  </target>
+  
+  <target name="copy.google.locator" description="Copy files to output directory" depends="compile.google.locator">
+    <patternset id="copy.patterns">
+      <include name="**/*.gif"/>
+      <include name="**/*.jpg"/>
+      <include name="**/*.jpeg"/>
+      <include name="**/*.png"/>
+      <include name="**/*.properties"/>
+      <include name="**/*.xml"/>
+      <include name="**/*-apf.xml"/>
+      <include name="**/*.ejx"/>
+      <include name="**/*.xcfg"/>
+      <include name="**/*.cpx"/>
+      <include name="**/*.dcx"/>
+      <include name="**/*.sva"/>
+      <include name="**/*.wsdl"/>
+      <include name="**/*.ini"/>
+      <include name="**/*.tld"/>
+      <include name="**/*.tag"/>
+      <include name="**/*.xlf"/>
+      <include name="**/*.xsl"/>
+      <include name="**/*.xsd"/>
+    </patternset>
+    <copy todir="${google.locator.output.dir}">
+      <fileset dir="${co.dir}/src">
+        <patternset refid="copy.patterns"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="archive.google.locator" depends="copy.google.locator">
+    <!--exec executable="cmd" output="manifest.mf" append="false" os="Windows XP">
+      <arg value="/c"/>
+      <arg value="echo"/>
+      <arg value="Compile-Date:"/>
+      <arg value="%DATE%"/>
+      <arg value="%TIME%"/>
+    </exec-->
+    <mkdir dir="all-libs"/>
+    <jar destfile="all-libs/google.locator.jar" compress="true"> <!-- manifest="manifest.mf"-->
+      <fileset dir="${google.locator.output.dir}">
+        <exclude name="**/*.cdi"/>
+      </fileset>
+    </jar>
+  </target>
+
+</project>

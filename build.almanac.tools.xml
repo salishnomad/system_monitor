@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<project name="svn-almanac.tools" basedir="." default="help">
+  
+  <property file="build.properties"/>
+
+  <property name="almanac.tools.output.dir" value="almanac.tools.classes"/>
+  <property name="co.dir" value="src.almanac.tools"/>
+  
+  <!-- path to the svnant libraries. Usually they will be located in ANT_HOME/lib -->
+  <path id="project.classpath">
+	<fileset dir="${lib.dir}">
+	  <include name="**/*.jar"/>
+	</fileset>
+  </path>  
+
+  <path id="classpath">
+	<fileset dir="all-3rd-party">
+	  <include name="**/*.jar"/>
+	</fileset>
+  </path>  
+
+  <target name="clean">
+    <delete dir="${co.dir}"/>  
+    <delete dir="${almanac.tools.output.dir}"/>  
+  </target>
+  
+  <target name="all" depends="clean, co.almanac.tools, compile.almanac.tools, copy.almanac.tools, archive.almanac.tools"/>
+
+  <target name="co.almanac.tools">
+    <exec executable="${svn.exec}" searchpath="yes">
+      <arg value="checkout"/>
+      <arg value="http://almanac-related-tools.googlecode.com/svn/trunk/"/>
+      <arg value="${co.dir}"/>
+    </exec>
+  </target>
+  
+  <target name="compile.almanac.tools" description="Compile Java source files" depends="co.almanac.tools">
+    <mkdir dir="${almanac.tools.output.dir}"/>
+    <path id="almanac.tools.classpath">
+      <path refid="classpath"/>
+      <pathelement location="all-libs/coreutilities.jar"/>
+      <pathelement location="all-libs/nmeaparser.jar"/>
+      <pathelement location="all-libs/nmeareader.jar"/>
+      <pathelement location="all-libs/chartcomponents.jar"/>
+      <pathelement location="all-libs/almanac.jar"/>
+	  <pathelement location="all-3rd-party/rxtx.distrib/RXTXcomm.jar"/>
+    </path>
+    <javac destdir="${almanac.tools.output.dir}" classpathref="almanac.tools.classpath"
+           debug="${javac.debug}" nowarn="${javac.nowarn}"
+           deprecation="${javac.deprecation}" encoding="Cp1252" source="1.5"
+           target="1.5">
+      <compilerarg value="-Xlint:unchecked"/>
+      <src path="${co.dir}/src"/>
+    </javac>
+  </target>
+  
+  <target name="copy.almanac.tools" description="Copy files to output directory" depends="compile.almanac.tools">
+    <patternset id="copy.patterns">
+      <include name="**/*.gif"/>
+      <include name="**/*.jpg"/>
+      <include name="**/*.jpeg"/>
+      <include name="**/*.png"/>
+      <include name="**/*.properties"/>
+      <include name="**/*.xml"/>
+      <include name="**/*-apf.xml"/>
+      <include name="**/*.ejx"/>
+      <include name="**/*.xcfg"/>
+      <include name="**/*.cpx"/>
+      <include name="**/*.dcx"/>
+      <include name="**/*.sva"/>
+      <include name="**/*.wsdl"/>
+      <include name="**/*.ini"/>
+      <include name="**/*.tld"/>
+      <include name="**/*.tag"/>
+      <include name="**/*.xlf"/>
+      <include name="**/*.xsl"/>
+      <include name="**/*.xsd"/>
+    </patternset>
+    <copy todir="${almanac.tools.output.dir}">
+      <fileset dir="${co.dir}/src">
+        <patternset refid="copy.patterns"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="archive.almanac.tools" depends="copy.almanac.tools">
+    <!--exec executable="cmd" output="manifest.mf" append="false" os="Windows XP">
+      <arg value="/c"/>
+      <arg value="echo"/>
+      <arg value="Compile-Date:"/>
+      <arg value="%DATE%"/>
+      <arg value="%TIME%"/>
+    </exec-->
+    <mkdir dir="all-libs"/>
+    <jar destfile="all-libs/almanac.tools.jar" compress="true"> <!-- manifest="manifest.mf"-->
+      <fileset dir="${almanac.tools.output.dir}">
+        <exclude name="**/*.cdi"/>
+      </fileset>
+    </jar>
+  </target>
+
+</project>
