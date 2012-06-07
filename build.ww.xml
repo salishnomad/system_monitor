@@ -93,7 +93,7 @@
       <arg value="%TIME%"/>
     </exec>
     <exec executable="date" output="manifest.mf" append="false" osfamily="unix">
-      <arg value="+Compile-Date:%a %m/%d/%Y %T"/>
+      <arg value="+Compile-Date: %a %m/%d/%Y %T"/>
     </exec>
     <mkdir dir="all-libs"/>
     <jar destfile="all-libs/ww.jar" compress="true" manifest="manifest.mf">
