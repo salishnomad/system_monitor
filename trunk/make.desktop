@@ -1,0 +1,5 @@
+#!/bin/bash
+JAVA_HOME=/oracle/javahome/jdk1.6.0_29
+WHERE_IS_ANT=/oracle/jdevhome/jdeveloper/ant/bin
+JAVA_OPTIONS="-Dhttp.proxyHost=www-proxy.us.oracle.com -Dhttp.proxyPort=80"
+$WHERE_IS_ANT/ant $JAVA_OPTIONS -buildfile build.master.dektop.xml $*
