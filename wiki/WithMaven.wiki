@@ -2,3 +2,36 @@
 #How to build the Weather Wizard with Maven
 
 = With Maven =
+==Pre-requisites==
+  * You need an [http://www.sliksvn.com/en/download SVN (Subversion) client] to download the artifacts of this project. The executable *must* be in the path.
+  * You need a [http://www.oracle.com/technetwork/java/javase/downloads/index.html Java Development Kit] (JDK)
+  * You need [http://maven.apache.org/download.html Maven]
+<br>
+The SVN client mentioned above is used to download the artifact of _this_ project, as well as later by Ant, to download *_all_* the required dependencies.
+<br>
+<br>
+To build all the required components, check out this project as mentioned on the [http://code.google.com/p/oliv-soft-project-builder/source/checkout source page], and below.
+<br>
+To do so, you obviously need an SVN client. I am personally using [http://www.sliksvn.com/en/download SlikSVN].
+<br>
+In a *_new directory_*, check out the code, and run the commands mentioned below.
+<br>
+<br>
+To check out:
+{{{
+Prompt> svn checkout http://oliv-soft-project-builder.googlecode.com/svn/trunk/ oliv.soft
+Prompt> cd oliv.soft
+}}}
+<br>
+_Note: *If you are behind a firewall*_
+  You can setup the proxy you need for svn by modifying the file at {{{~/.subversion/servers}}}.
+  You need to set it under the {{{[global]}}} section.
+<br>
+Now, there are 2 poms, one to download the required sub-projects, and another one to build everything.
+<br>
+{{{
+mvn -f weather-wizard.co.pom.xml  initialize
+mvn -f weather-wizard.pom.xml package
+}}}
+<br>
+----
