@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <!-- 
+     set PATH=D:\apache-maven-3.0.3\bin;%PATH%
+     set JAVA_HOME=D:\Program Files\Java\jdk1.7.0
+   +-->
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>OlivSoft</groupId>
+  <artifactId>OlivSoft</artifactId>
+  <version>1.0</version>
+  <name>WeatherWizard</name>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>src.charts</module>
+    <module>src.core</module>
+    <module>src.parser</module>
+    <module>src.reader</module>
+    <module>src.ww</module>
+    <module>src.polars</module>
+  </modules>
+</project>

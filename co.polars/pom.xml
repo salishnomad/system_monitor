@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+    <!-- 
+     set PATH=D:\apache-maven-3.0.3\bin;%PATH%
+     set JAVA_HOME=D:\Program Files\Java\jdk1.7.0
+   +-->
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>checkout</groupId>
+    <artifactId>polars</artifactId>
+    <version>1.0</version>
+    <name>CheckOut.Polars</name>
+    <packaging>pom</packaging>
+    <build>
+        <defaultGoal>initialize</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.1.1</version>
+                <configuration>
+                    <executable>svn</executable>
+                    <arguments>
+                        <argument>checkout</argument> 
+                        <argument>http://polar-smoother.googlecode.com/svn/trunk/</argument> 
+                        <argument>../src.polars</argument>
+                    </arguments>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
