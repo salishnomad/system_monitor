@@ -30,7 +30,7 @@ _Note: *If you are behind a firewall*_
 Now, there are 2 poms, one to download the required sub-projects, and another one to build everything.
 <br>
 {{{
-mvn -f weather-wizard.co.pom.xml  initialize
+mvn -f weather-wizard.co.pom.xml initialize
 mvn -f weather-wizard.pom.xml package
 }}}
 <br>
