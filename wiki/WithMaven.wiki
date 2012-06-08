@@ -1,5 +1,5 @@
+#summary How to build the Weather Wizard with Maven
 #labels Featured
-# How to build the Weather Wizard with Maven
 
 = With Maven =
 ==Pre-requisites==
