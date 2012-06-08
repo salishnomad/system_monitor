@@ -7,7 +7,7 @@
   * You need a [http://www.oracle.com/technetwork/java/javase/downloads/index.html Java Development Kit] (JDK)
   * You need [http://maven.apache.org/download.html Maven]
 <br>
-The SVN client mentioned above is used to download the artifact of _this_ project, as well as later by Ant, to download *_all_* the required dependencies.
+The SVN client mentioned above is used to download the artifact of _this_ project, as well as later by Maven, to download *_all_* the required dependencies.
 <br>
 <br>
 To build all the required components, check out this project as mentioned on the [http://code.google.com/p/oliv-soft-project-builder/source/checkout source page], and below.
