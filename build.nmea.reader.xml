@@ -74,6 +74,7 @@
       <include name="**/*.xsl"/>
       <include name="**/*.xsd"/>
       <include name="**/*.ttf"/>
+      <include name="**/*.html"/>
     </patternset>
     <copy todir="${nmeareader.output.dir}">
       <fileset dir="${co.dir}/src">
