@@ -30,7 +30,7 @@ Note:
  ant.setproxy(proxyhost: "$proxyHost", proxyport: "$proxyPort")
 }}}
 
-You can also install the generated archive to Maven (locally) by typing
+You can also install the generated archives to Maven (locally) by typing
 {{{
  Prompt> gradle install
 }}}
