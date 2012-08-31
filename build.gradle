@@ -31,51 +31,25 @@ repositories {
   maven { url "file:///" + userprofile + "/.m2/repository" }
 }
 
-task checkoutJavaNMEAParser {
-  "svn checkout http://javanmeaparser.googlecode.com/svn/trunk JavaNMEAParser".execute();
+task checkout << {
+  println "Run the script named checkout..."
+//  "svn checkout http://javanmeaparser.googlecode.com/svn/trunk JavaNMEAParser".execute();
+//  "svn checkout http://coreutilities.googlecode.com/svn/trunk CoreUtilities".execute();
+//  "svn checkout http://chartcomponents.googlecode.com/svn/trunk ChartComponents".execute();
+//  "svn checkout http://javanauticalalmanac.googlecode.com/svn/trunk JavaNauticalAlmanac".execute();
+//  "svn checkout http://fullnmeaconsole.googlecode.com/svn/trunk FullNMEAConsole".execute();
+//  "svn checkout http://almanac-related-tools.googlecode.com/svn/trunk AlmanacRelatedTools".execute();
+//  "svn checkout http://chart-library.googlecode.com/svn/trunk ChartLib".execute();
+//  "svn checkout http://google-locator.googlecode.com/svn/trunk GenerateLocator".execute();
+//  "svn checkout http://java-tide-engine.googlecode.com/svn/trunk JavaTideEngine".execute();
+//  "svn checkout http://tide-engine-implementation.googlecode.com/svn/trunk JavaTideEngineImplementation".execute();
+//  "svn checkout http://star-finder.googlecode.com/svn/trunk NightSky".execute();
+//  "svn checkout http://sailfax.googlecode.com/svn/trunk SailFax".execute();
+//  "svn checkout http://navigation-desktop.googlecode.com/svn/trunk OlivSoftDesktop".execute();
+//  "svn checkout http://polar-smoother.googlecode.com/svn/trunk PolarSmoother".execute();  
+//  "svn checkout http://weatherwizard.googlecode.com/svn/trunk WeatherWizard".execute();
 }
 
-task checkoutCoreUtilities {  
-  "svn checkout http://coreutilities.googlecode.com/svn/trunk CoreUtilities".execute();
-}
-
-task checkoutChartComponents {
-  "svn checkout http://chartcomponents.googlecode.com/svn/trunk ChartComponents".execute();
-}
-
-task checkoutJavaAlmanac {  
-  "svn checkout http://javanauticalalmanac.googlecode.com/svn/trunk JavaNauticalAlmanac".execute();
-}
-
-task checkoutNMEAConsole {  
-  "svn checkout http://fullnmeaconsole.googlecode.com/svn/trunk FullNMEAConsole".execute();
-}
-
-task checkoutAlmanacTools {  
-  "svn checkout http://almanac-related-tools.googlecode.com/svn/trunk AlmanacRelatedTools".execute();
-}
-
-task checkoutChartLib {
-  "svn checkout http://chart-library.googlecode.com/svn/trunk ChartLib".execute();
-}
-
-task akeu {
-  "svn checkout http://google-locator.googlecode.com/svn/trunk GenerateLocator".execute();
-  "svn checkout http://java-tide-engine.googlecode.com/svn/trunk JavaTideEngine".execute();
-  "svn checkout http://tide-engine-implementation.googlecode.com/svn/trunk JavaTideEngineImplementation".execute();
-  "svn checkout http://star-finder.googlecode.com/svn/trunk NightSky".execute();
-  "svn checkout http://sailfax.googlecode.com/svn/trunk SailFax".execute();
-  "svn checkout http://navigation-desktop.googlecode.com/svn/trunk OlivSoftDesktop".execute();
-  "svn checkout http://polar-smoother.googlecode.com/svn/trunk PolarSmoother".execute();  
-  "svn checkout http://weatherwizard.googlecode.com/svn/trunk WeatherWizard".execute();
-}
-
-task checkout(dependsOn: 'checkoutJavaNMEAParser') {
-  println "Checking out from Google Code"
-}
-
-task dropsrc {
+task dropsrc << {
   println "To Be Implemented..."
 }
-
-build.dependsOn(checkout)
