@@ -1,0 +1,1 @@
+include 'JavaNMEAParser', 'CoreUtilities', 'ChartComponents', 'JavaNauticalAlmanac', 'FullNMEAConsole', 'AlmanacRelatedTools', 'ChartLib', 'GenerateLocator', 'JavaTideEngine', 'JavaTideEngineImplementation', 'NightSky', 'SailFax', 'OlivSoftDesktop', 'PolarSmoother', 'WeatherWizard'

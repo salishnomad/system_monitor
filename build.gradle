@@ -1,0 +1,56 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'oliv.cool.stuff'
+version = '1.0'
+
+def userprofile = System.getenv()['USERPROFILE'] // On Windows...
+
+dependencies {
+  compile project(':JavaNMEAParser')
+  compile project(':CoreUtilities')
+  compile project(':ChartComponents')
+  compile project(':JavaNauticalAlmanac')
+  compile project(':FullNMEAConsole')
+  compile project(':AlmanacRelatedTools')
+  compile project(':ChartLib')
+  compile project(':GenerateLocator') 
+  compile project(':JavaTideEngine')
+  compile project(':JavaTideEngineImplementation')
+  compile project(':NightSky')
+  compile project(':SailFax')
+  compile project(':OlivSoftDesktop')
+  compile project(':PolarSmoother')
+  compile project(':WeatherWizard')
+}
+
+repositories {
+  mavenCentral()
+  maven { url "http://lediouris.net/maven2" }
+  maven { url "file:///" + userprofile + "/.m2/repository" }
+}
+
+task checkout {
+  println "Checking out from Google Code"
+  "svn checkout http://javanmeaparser.googlecode.com/svn/trunk/src JavaNMEAParser/src".execute();
+  "svn checkout http://coreutilities.googlecode.com/svn/trunk/src CoreUtilities/src".execute();
+  "svn checkout http://chartcomponents.googlecode.com/svn/trunk/src ChartComponents/src".execute();
+  "svn checkout http://javanauticalalmanac.googlecode.com/svn/trunk/src JavaNauticalAlmanac/src".execute();
+  "svn checkout http://fullnmeaconsole.googlecode.com/svn/trunk/src FullNMEAConsole/src".execute();
+  "svn checkout http://almanac-related-tools.googlecode.com/svn/trunk/src AlmanacRelatedTools/src".execute();
+  "svn checkout http://chart-library.googlecode.com/svn/trunk/src ChartLib/src".execute();
+  "svn checkout http://google-locator.googlecode.com/svn/trunk/src GenerateLocator/src".execute();
+  "svn checkout http://java-tide-engine.googlecode.com/svn/trunk/src JavaTideEngine/src".execute();
+  "svn checkout http://tide-engine-implementation.googlecode.com/svn/trunk/src JavaTideEngineImplementation/src".execute();
+  "svn checkout http://star-finder.googlecode.com/svn/trunk/src NightSky/src".execute();
+  "svn checkout http://sailfax.googlecode.com/svn/trunk/src SailFax/arc".execute();
+  "svn checkout http://navigation-desktop.googlecode.com/svn/trunk/src OlivSoftDesktop/src".execute();
+  "svn checkout http://polar-smoother.googlecode.com/svn/trunk/src PolarSmoother/src".execute();  
+  "svn checkout http://weatherwizard.googlecode.com/svn/trunk/src WeatherWizard/src".execute();
+}
+
+task dropsrc {
+  println "To Be Implemented..."
+}
+
+build.dependsOn(checkout)
