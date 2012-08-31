@@ -27,8 +27,7 @@ Once the checkout process is completed, then you can type
 Note:
  The build accesses a Maven reporitory. If you are behind a firewall, modify the file named {{{ gradle.properties }}} available in each sub-directory. If you are not behind a firewall, comment the ant line in each {{{ build.gradle }}}, this one:
 {{{
- ant.setproxy(proxyhost: "$proxyHost", proxyport: "$proxyPort") //, proxyuser="user", proxypassword="password") 
-
+ ant.setproxy(proxyhost: "$proxyHost", proxyport: "$proxyPort")
 }}}
 
 You can also install the generated archive to Maven (locally) by typing
