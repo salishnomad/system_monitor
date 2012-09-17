@@ -25,7 +25,7 @@ Once the checkout process is completed, then you can type
  Prompt> gradle build
 }}}
 Note:
- The build accesses a Maven reporitory. If you are behind a firewall, modify the file named {{{ gradle.properties }}} available in each sub-directory. If you are not behind a firewall, comment the ant line in each {{{ build.gradle }}}, this one:
+ The build accesses a Maven reporitory. If you are behind a firewall, modify the file named {{{ gradle.properties }}} available in each sub-directory. If you are _not_ behind a firewall, comment the ant line in each {{{ build.gradle }}}, this one:
 {{{
  ant.setproxy(proxyhost: "$proxyHost", proxyport: "$proxyPort")
 }}}
