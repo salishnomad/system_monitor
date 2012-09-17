@@ -44,4 +44,6 @@ and
  Prompt> gradle OlivSoftDesktop:run
 }}}
 Note:
- Those run are not 100% valid, as some configuration files are missing   in the runtime environment. Use the download section for that.
+ _Those run are not 100% valid, as some configuration files are missing   in the runtime environment._ 
+ <br>
+ Use the download section for that.
