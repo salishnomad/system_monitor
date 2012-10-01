@@ -8,10 +8,12 @@ You need to have Java and [http://gradle.org Gradle] installed on your system.
 First you need to checkout the code of the current project, as mentioned [http://code.google.com/p/oliv-soft-project-builder/source/checkout here].
 
 Then you need to checkout the code of the different projects to assemble, by running:
-
-On Linux and MacOS
+On Linux
 {{{
  Prompt> dos2unix checkout.bsh
+}}}
+On Linux and MacOS
+{{{
  Prompt> chmod +x checkout.bsh
  Prompt> ./checkout.bsh
 }}}
