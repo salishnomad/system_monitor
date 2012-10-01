@@ -13,7 +13,7 @@ On Linux and MacOS
 {{{
  Prompt> dos2unix checkout.bsh
  Prompt> chmod +x checkout.bsh
- Propmt> ./checkout.bsh
+ Prompt> ./checkout.bsh
 }}}
 On Windows
 {{{
