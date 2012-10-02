@@ -49,4 +49,6 @@ and
 Note:
  _Those run are not 100% valid, as some configuration files are missing   in the runtime environment._ 
  <br>
+ You might see some messages in the console about that.
+ <br>
  Use the download section for that.
