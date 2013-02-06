@@ -92,7 +92,7 @@
     <echo message="Copying configuration files"/>
 	
     <mkdir dir="../all-db"/>
-    <mkdir dir="./xml.data"/>
+    <!--mkdir dir="./xml.data"/-->
     <patternset id="chart.db.patterns">
       <include name="**/CHART.*"/>
     </patternset>
@@ -105,12 +105,12 @@
     <patternset id="sailfax.xml">
       <include name="**/pac-fax-data.xml"/>
     </patternset>
-    <patternset id="tide.data">
+    <!--patternset id="tide.data">
       <include name="**/*.*"/>
-    </patternset>
-    <patternset id="tide.sql">
+    </patternset-->
+    <!--patternset id="tide.sql">
       <include name="**/TIDES.*"/>
-    </patternset>
+    </patternset-->
     <patternset id="log.db">
       <include name="**/LOG.*"/>
     </patternset>
@@ -120,11 +120,11 @@
         <patternset refid="chart.db.patterns"/>
       </fileset>
     </copy>
-    <copy todir="../all-db">
+    <!--copy todir="../all-db">
       <fileset dir="src.te.impl/all-db">
         <patternset refid="tide.sql"/>
       </fileset>
-    </copy>
+    </copy-->
     <copy todir="../all-db">
       <fileset dir="src.nmeareader/log-db">
         <patternset refid="log.db"/>
@@ -145,11 +145,11 @@
         <patternset refid="sailfax.xml"/>
       </fileset>
     </copy>
-    <copy todir="./xml.data">
+    <!--copy todir="./xml.data">
       <fileset dir="src.te.impl/xml.data" >
         <patternset refid="tide.data"/>
       </fileset>
-    </copy>
+    </copy-->
 
   </target>
 
