@@ -8,6 +8,7 @@ def userprofile = System.getenv()['USERPROFILE'] // On Windows...
 ant.setproxy(proxyhost: "$proxyHost", proxyport: "$proxyPort") //, proxyuser="user", proxypassword="password") 
 
 dependencies {
+  compile project(':GeomUtils')
   compile project(':JavaNMEAParser')
   compile project(':CoreUtilities')
   compile project(':ChartComponents')
