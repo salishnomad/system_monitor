@@ -1,4 +1,5 @@
 #!/bin/bash
+svn checkout http://geomutils.googlecode.com/svn/trunk GeomUtils
 svn checkout http://javanmeaparser.googlecode.com/svn/trunk JavaNMEAParser
 svn checkout http://coreutilities.googlecode.com/svn/trunk CoreUtilities
 svn checkout http://chartcomponents.googlecode.com/svn/trunk ChartComponents
