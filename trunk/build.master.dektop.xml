@@ -3,10 +3,11 @@
   
   <property file="build.properties"/>
   
-  <target name="all" depends="geomutils, core, te, parser, charts, almanac, nmea.reader, almanac.tools, tide.implementation, sailfax, google.locator, chart.lib, star.finder, desktop"/>
+  <target name="all" depends="geomutils, core, te, parser, charts, polar.smoother, almanac, nmea.reader, almanac.tools, tide.implementation, sailfax, google.locator, chart.lib, star.finder, desktop"/>
   
   <target name="clean.all">
     <ant antfile="build.geomutils.xml" target="clean" dir="."/>  
+    <ant antfile="build.polar.smoother.xml" target="clean" dir="."/>  
     <ant antfile="build.core.xml" target="clean" dir="."/>  
     <ant antfile="build.te.xml" target="clean" dir="."/>  
     <ant antfile="build.parser.xml" target="clean" dir="."/>  
@@ -34,6 +35,11 @@
     <ant antfile="build.core.xml" target="all" dir="."/>  
   </target>
   
+  <target name="polar.smoother">
+    <echo message="Making Polar Smoother"/>
+    <ant antfile="build.polar.smoother.xml" target="all" dir="."/>  
+  </target>
+
   <target name="te">
     <echo message="Making TideEngine"/>
     <ant antfile="build.te.xml" target="all" dir="."/>  
