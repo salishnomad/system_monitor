@@ -38,6 +38,7 @@
     <mkdir dir="${ww.output.dir}"/>
     <path id="ww.classpath">
       <path refid="classpath"/>
+      <pathelement location="all-libs/geomutils.jar"/>
       <pathelement location="all-libs/coreutilities.jar"/>
       <pathelement location="all-libs/chartcomponents.jar"/>
       <pathelement location="all-libs/nmeaparser.jar"/>
