@@ -38,6 +38,7 @@
     <mkdir dir="${te.output.dir}"/>
     <path id="te.classpath">
       <path refid="classpath"/>
+      <pathelement location="all-libs/geomutils.jar"/>
       <pathelement location="all-libs/coreutilities.jar"/>
     </path>
     <javac destdir="${te.output.dir}" classpathref="te.classpath"

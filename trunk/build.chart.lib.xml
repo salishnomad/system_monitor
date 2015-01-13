@@ -38,6 +38,7 @@
     <mkdir dir="${chart.lib.output.dir}"/>
     <path id="chart.lib.classpath">
       <path refid="classpath"/>
+      <pathelement location="all-libs/geomutils.jar"/>
       <pathelement location="all-libs/coreutilities.jar"/>
       <pathelement location="all-libs/nmeaparser.jar"/>
       <pathelement location="all-libs/nmeareader.jar"/>

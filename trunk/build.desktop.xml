@@ -38,6 +38,7 @@
     <mkdir dir="${navigation.desktop.output.dir}"/>
     <path id="navigation.desktop.classpath">
       <path refid="classpath"/>
+      <pathelement location="all-libs/geomutils.jar"/>
       <pathelement location="all-libs/coreutilities.jar"/>
       <pathelement location="all-libs/almanac.jar"/>
       <pathelement location="all-libs/chartcomponents.jar"/>

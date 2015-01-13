@@ -38,6 +38,7 @@
     <mkdir dir="${almanac.output.dir}"/>
     <path id="almanac.classpath">
       <path refid="classpath"/>
+      <pathelement location="all-libs/geomutils.jar"/>
       <pathelement location="all-libs/coreutilities.jar"/>
       <pathelement location="all-libs/nmeaparser.jar"/>
     </path>

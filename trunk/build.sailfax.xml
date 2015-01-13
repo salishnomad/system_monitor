@@ -38,6 +38,7 @@
     <mkdir dir="${sailfax.output.dir}"/>
     <path id="sailfax.classpath">
       <path refid="classpath"/>
+      <pathelement location="all-libs/geomutils.jar"/>
       <pathelement location="all-libs/coreutilities.jar"/>
       <pathelement location="all-libs/nmeaparser.jar"/>
       <pathelement location="all-libs/chartcomponents.jar"/>

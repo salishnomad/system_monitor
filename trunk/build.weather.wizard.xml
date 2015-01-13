@@ -3,17 +3,25 @@
   
   <property file="build.properties"/>
   
-  <target name="all" depends="core, parser, charts, nmea.reader, polar.smoother, weather.wizard"/>
+  <target name="all" depends="geomutils, core, parser, charts, polar.smoother, almanac, nmea.reader, weather.wizard"/>
   
   <target name="clean.all">
+    <ant antfile="build.geomutils.xml" target="clean" dir="."/>  
     <ant antfile="build.core.xml" target="clean" dir="."/>  
     <ant antfile="build.parser.xml" target="clean" dir="."/>  
     <ant antfile="build.charts.xml" target="clean" dir="."/>  
     <ant antfile="build.nmea.reader.xml" target="clean" dir="."/>  
+    <ant antfile="build.almanac.xml" target="clean" dir="."/>  
+    <ant antfile="build.almanac.tools.xml" target="clean" dir="."/>  
     <ant antfile="build.polar.smoother.xml" target="clean" dir="."/>  
     <ant antfile="build.ww.xml" target="clean" dir="."/>  
     <delete dir="classes"/>  
     <delete dir="all-libs"/>  
+  </target>
+  
+  <target name="geomutils">
+    <echo message="Making GeomUtils"/>
+    <ant antfile="build.geomutils.xml" target="all" dir="."/>  
   </target>
   
   <target name="core">
@@ -31,8 +39,13 @@
     <ant antfile="build.polar.smoother.xml" target="all" dir="."/>  
   </target>
 
+  <target name="almanac">
+    <echo message="Making Nautical Almanac"/>
+    <ant antfile="build.almanac.xml" target="all" dir="."/>  
+  </target>
+
   <target name="nmea.reader">
-    <echo message="Making NMEAReader"/>
+    <echo message="Making NMEA Reader"/>
     <ant antfile="build.nmea.reader.xml" target="all" dir="."/>  
   </target>
 
@@ -48,10 +61,10 @@
 
   <target name="run.config">
     <echo message="Copying configuration files"/>
-	<mkdir dir="faxDir"/>
-	<mkdir dir="gribDir"/>
-	<mkdir dir="compositeDir"/>
-	<mkdir dir="patterns"/>
+  <mkdir dir="faxDir"/>
+  <mkdir dir="gribDir"/>
+  <mkdir dir="compositeDir"/>
+  <mkdir dir="patterns"/>
     <patternset id="places.xml">
       <include name="**/places.xml"/>
     </patternset>
@@ -74,44 +87,44 @@
   </target>
 
   <target name="run.ww" depends="run.config">
-	<path id="3rd.classpath">
-	  <fileset dir="all-3rd-party">
-	    <include name="**/*.jar"/>
-	  </fileset>
-	</path>  
-	<path id="classpath">
-	  <fileset dir="all-libs">
-	    <include name="**/*.jar"/>
-	  </fileset>
-	</path>  
+  <path id="3rd.classpath">
+    <fileset dir="all-3rd-party">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>  
+  <path id="classpath">
+    <fileset dir="all-libs">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>  
     <path id="desktop.classpath">
       <path refid="3rd.classpath"/>
       <path refid="classpath"/>
     </path>
     <java classname="main.splash.Splasher" dir="." fork="yes">
       <classpath refid="desktop.classpath"/>
-	  <jvmarg line="-client -Djava.library.path=all-3rd-party/rxtx.distrib/${system.type}"/>
+    <jvmarg line="-client -Djava.library.path=all-3rd-party/rxtx.distrib/${system.type}"/>
     </java>
   </target>
 
   <target name="run.ps" depends="run.config">
-	<path id="3rd.classpath">
-	  <fileset dir="all-3rd-party">
-	    <include name="**/*.jar"/>
-	  </fileset>
-	</path>  
-	<path id="classpath">
-	  <fileset dir="all-libs">
-	    <include name="**/*.jar"/>
-	  </fileset>
-	</path>  
+  <path id="3rd.classpath">
+    <fileset dir="all-3rd-party">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>  
+  <path id="classpath">
+    <fileset dir="all-libs">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>  
     <path id="desktop.classpath">
       <path refid="3rd.classpath"/>
       <path refid="classpath"/>
     </path>
     <java classname="polarmaker.polars.main.PolarSmoother" dir="." fork="yes">
       <classpath refid="desktop.classpath"/>
-	  <jvmarg line="-client"/>
+    <jvmarg line="-client"/>
     </java>
   </target>
 
@@ -124,13 +137,13 @@
       - coreutilities
       - javanmeaparser
       - chartcomponents
-	  - and more!
+    - and more!
       
       The target named "all" takes care of everything.
       
       Some 3rd party jar files are required:
       - xmlparserv2.jar from Oracle.
-	  - JavaAdvancedImaging from Sun.
+    - JavaAdvancedImaging from Sun.
       - RXTXcomm.jar, for the Java Communication API (Serial ports access).
       All are available for free.
     </echo>

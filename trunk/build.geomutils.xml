@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<project name="svn-nmea-parser" basedir="." default="help">
+<project name="svn-geomutils" basedir="." default="help">
   
   <property file="build.properties"/>
 
-  <property name="nmeaparser.output.dir" value="nmeaparser.classes"/>
-  <property name="co.dir" value="src.nmeaparser"/>
+  <property name="geomutils.output.dir" value="geomutils.classes"/>
+  <property name="co.dir" value="src.geomutils"/>
   
   <!-- path to the svnant libraries. Usually they will be located in ANT_HOME/lib -->
   <path id="project.classpath">
@@ -21,28 +21,28 @@
 
   <target name="clean">
     <delete dir="${co.dir}"/>  
-    <delete dir="${nmeaparser.output.dir}"/>  
+    <delete dir="${geomutils.output.dir}"/>  
+  </target>
+
+  <target name="all" depends="clean, co.geomutils.utilities, compile.geomutils, copy.geomutils, archive.geomutils"/>
+
+  <target name="checkout.geomutils.utilities">
+    <echo>Checking out GeomUtils</echo>
+	<!--svn><checkout url="http://coreutilities.googlecode.com/svn/trunk coreutilities-read-only" path="src_geomutils" /></svn-->
+	<svn><checkout url="http://geomutils.googlecode.com/svn/trunk" path="src_geomutils" /></svn>
   </target>
   
-  <target name="all" depends="clean, co.nmeaparser, compile.nmeaparser, copy.nmeaparser, archive.nmeaparser"/>
-
-  <target name="co.nmeaparser">
+  <target name="co.geomutils.utilities">
     <exec executable="${svn.exec}" searchpath="yes">
       <arg value="checkout"/>
-      <arg value="http://javanmeaparser.googlecode.com/svn/trunk/"/>
+      <arg value="http://geomutils.googlecode.com/svn/trunk/"/>
       <arg value="${co.dir}"/>
     </exec>
   </target>
   
-  <target name="compile.nmeaparser" description="Compile Java source files" depends="co.nmeaparser">
-    <mkdir dir="${nmeaparser.output.dir}"/>
-    <path id="nmeaparser.classpath">
-      <path refid="classpath"/>
-      <pathelement location="all-libs/geomutils.jar"/>
-      <pathelement location="all-libs/coreutilities.jar"/>
-	  <pathelement location="all-3rd-party/rxtx.distrib/RXTXcomm.jar"/>
-    </path>
-    <javac destdir="${nmeaparser.output.dir}" classpathref="nmeaparser.classpath"
+  <target name="compile.geomutils" description="Compile Java source files" depends="co.geomutils.utilities">
+    <mkdir dir="${geomutils.output.dir}"/>
+    <javac destdir="${geomutils.output.dir}" classpathref="classpath"
            debug="${javac.debug}" nowarn="${javac.nowarn}"
            deprecation="${javac.deprecation}" encoding="Cp1252" source="1.5"
            target="1.5">
@@ -51,7 +51,7 @@
     </javac>
   </target>
   
-  <target name="copy.nmeaparser" description="Copy files to output directory" depends="compile.nmeaparser">
+  <target name="copy.geomutils" description="Copy files to output directory" depends="compile.geomutils">
     <patternset id="copy.patterns">
       <include name="**/*.gif"/>
       <include name="**/*.jpg"/>
@@ -72,15 +72,16 @@
       <include name="**/*.xlf"/>
       <include name="**/*.xsl"/>
       <include name="**/*.xsd"/>
+      <include name="**/*.ttf"/>
     </patternset>
-    <copy todir="${nmeaparser.output.dir}">
+    <copy todir="${geomutils.output.dir}">
       <fileset dir="${co.dir}/src">
         <patternset refid="copy.patterns"/>
       </fileset>
     </copy>
   </target>
   
-  <target name="archive.nmeaparser" depends="copy.nmeaparser">
+  <target name="archive.geomutils" depends="copy.geomutils">
     <!--exec executable="cmd" output="manifest.mf" append="false" os="Windows XP">
       <arg value="/c"/>
       <arg value="echo"/>
@@ -89,8 +90,8 @@
       <arg value="%TIME%"/>
     </exec-->
     <mkdir dir="all-libs"/>
-    <jar destfile="all-libs/nmeaparser.jar" compress="true"> <!-- manifest="manifest.mf"-->
-      <fileset dir="${nmeaparser.output.dir}">
+    <jar destfile="all-libs/geomutils.jar" compress="true"> <!-- manifest="manifest.mf"-->
+      <fileset dir="${geomutils.output.dir}">
         <exclude name="**/*.cdi"/>
       </fileset>
     </jar>
