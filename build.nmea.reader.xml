@@ -38,10 +38,13 @@
     <mkdir dir="${nmeareader.output.dir}"/>
     <path id="nmeareader.classpath">
       <path refid="classpath"/>
+      <pathelement location="all-libs/geomutils.jar"/>
       <pathelement location="all-libs/coreutilities.jar"/>
       <pathelement location="all-libs/chartcomponents.jar"/>
       <pathelement location="all-libs/nmeaparser.jar"/>
-	  <pathelement location="all-3rd-party/rxtx.distrib/RXTXcomm.jar"/>
+      <pathelement location="all-libs/almanac.jar"/>
+      <pathelement location="all-libs/polar.smoother.jar"/>
+  	  <pathelement location="all-3rd-party/rxtx.distrib/RXTXcomm.jar"/>
     </path>
     <javac destdir="${nmeareader.output.dir}" classpathref="nmeareader.classpath"
            debug="${javac.debug}" nowarn="${javac.nowarn}"
