@@ -2,6 +2,10 @@
 #labels Featured
 
 = With Maven =
+
+_Warning:_ The Maven build is temporarily not working as expected. Please use Gradle or Ant until it is fixed.
+----
+
 ==Pre-requisites==
   * You need an [http://www.sliksvn.com/en/download SVN (Subversion) client] to download the artifacts of this project. The executable *must* be in the path.
   * You need a [http://www.oracle.com/technetwork/java/javase/downloads/index.html Java Development Kit] (JDK)
