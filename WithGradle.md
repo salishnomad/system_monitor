@@ -1,0 +1,51 @@
+This is a two-step process.
+You need to have Java and [Gradle](http://gradle.org) installed on your system.
+
+
+First you need to checkout the code of the current project, as mentioned [here](http://code.google.com/p/oliv-soft-project-builder/source/checkout).
+
+Then you need to checkout the code of the different projects to assemble, by running:
+<br />
+On Linux
+```
+ Prompt> dos2unix checkout.bsh
+```
+On Linux and MacOS
+```
+ Prompt> chmod +x checkout.bsh
+ Prompt> ./checkout.bsh
+```
+On Windows
+```
+ Prompt> checkout
+```
+
+Once the checkout process is completed, then you can type
+```
+ Prompt> gradle build
+```
+Note:
+> The build accesses a Maven reporitory. If you are behind a firewall, modify the file named ` gradle.properties ` available in each sub-directory. If you are _not_ behind a firewall, comment the ant line in each ` build.gradle `, this one:
+```
+ ant.setproxy(proxyhost: "$proxyHost", proxyport: "$proxyPort")
+```
+
+You can also install the generated archives to Maven (locally) by typing
+```
+ Prompt> gradle install
+```
+
+It is also possible to test the build, by running
+```
+ Prompt> gradle WeatherWizard:run
+```
+and
+```
+ Prompt> gradle OlivSoftDesktop:run
+```
+Note:
+> _Those run are not 100% valid, as some configuration files are missing   in the runtime environment._
+> <br>
+<blockquote>You might see some messages in the console about that.<br>
+<br>
+Use the download section for that.
