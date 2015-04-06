@@ -10,4 +10,4 @@ To proceed:
 - Modify the script named `set.gradle.env` to match your context
 - Run the script named `build.all`
 
-
+Note: If a proxy is required, set in in `gradle.properties`.]
