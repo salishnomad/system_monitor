@@ -1,5 +1,5 @@
 # oliv-soft-project-builder
-This project will help you to build the Weather Wizaqrd and the Navigation Desktop.
+This project will help you to build the Weather Wizard and the Navigation Desktop.
 - It requires Gradle and Java
 
 You obviously need git (ie on Windows, you need the git bash tool).
