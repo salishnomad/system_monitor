@@ -8,22 +8,22 @@ def userprofile = System.getenv()['USERPROFILE'] // On Windows...
 ant.setproxy(proxyhost: "$proxyHost", proxyport: "$proxyPort") //, proxyuser="user", proxypassword="password") 
 
 dependencies {
-  compile project(':GeomUtils')
-  compile project(':JavaNMEAParser')
-  compile project(':CoreUtilities')
-  compile project(':ChartComponents')
-  compile project(':JavaNauticalAlmanac')
-  compile project(':FullNMEAConsole')
-  compile project(':AlmanacRelatedTools')
-  compile project(':ChartLib')
-  compile project(':GenerateLocator') 
-  compile project(':JavaTideEngine')
-  compile project(':JavaTideEngineImplementation')
-  compile project(':NightSky')
-  compile project(':SailFax')
-  compile project(':OlivSoftDesktop')
-  compile project(':PolarSmoother')
-  compile project(':WeatherWizard')
+  compile project(':geomutils')
+  compile project(':javanmeaparser')
+  compile project(':coreutilities')
+  compile project(':chartcomponents')
+  compile project(':javanauticalalmanac')
+  compile project(':fullnmeaconsole')
+  compile project(':almanac-related-tools')
+  compile project(':chart-library')
+  compile project(':google-locator') 
+  compile project(':java-tide-engine')
+  compile project(':java-tide-engine-implementation')
+  compile project(':star-finder')
+  compile project(':sailfax')
+  compile project(':navigation-desktop')
+  compile project(':polar-smoother')
+  compile project(':weatherwizard')
 }
 
 repositories {
@@ -34,21 +34,6 @@ repositories {
 
 task checkout << {
   println "Run the script named checkout..."
-//  "svn checkout http://javanmeaparser.googlecode.com/svn/trunk JavaNMEAParser".execute();
-//  "svn checkout http://coreutilities.googlecode.com/svn/trunk CoreUtilities".execute();
-//  "svn checkout http://chartcomponents.googlecode.com/svn/trunk ChartComponents".execute();
-//  "svn checkout http://javanauticalalmanac.googlecode.com/svn/trunk JavaNauticalAlmanac".execute();
-//  "svn checkout http://fullnmeaconsole.googlecode.com/svn/trunk FullNMEAConsole".execute();
-//  "svn checkout http://almanac-related-tools.googlecode.com/svn/trunk AlmanacRelatedTools".execute();
-//  "svn checkout http://chart-library.googlecode.com/svn/trunk ChartLib".execute();
-//  "svn checkout http://google-locator.googlecode.com/svn/trunk GenerateLocator".execute();
-//  "svn checkout http://java-tide-engine.googlecode.com/svn/trunk JavaTideEngine".execute();
-//  "svn checkout http://tide-engine-implementation.googlecode.com/svn/trunk JavaTideEngineImplementation".execute();
-//  "svn checkout http://star-finder.googlecode.com/svn/trunk NightSky".execute();
-//  "svn checkout http://sailfax.googlecode.com/svn/trunk SailFax".execute();
-//  "svn checkout http://navigation-desktop.googlecode.com/svn/trunk OlivSoftDesktop".execute();
-//  "svn checkout http://polar-smoother.googlecode.com/svn/trunk PolarSmoother".execute();  
-//  "svn checkout http://weatherwizard.googlecode.com/svn/trunk WeatherWizard".execute();
 }
 
 task dropsrc << {
