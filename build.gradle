@@ -18,7 +18,7 @@ dependencies {
   compile project(':chart-library')
   compile project(':google-locator') 
   compile project(':java-tide-engine')
-  compile project(':java-tide-engine-implementation')
+  compile project(':tide-engine-implementation')
   compile project(':star-finder')
   compile project(':sailfax')
   compile project(':navigation-desktop')

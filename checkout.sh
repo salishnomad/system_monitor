@@ -13,7 +13,7 @@ checkout chartcomponents
 checkout javanauticalalmanac
 checkout fullnmeaconsole
 checkout java-tide-engine
-checkout java-tide-engine-implementation
+checkout tide-engine-implementation
 checkout almanac-related-tools
 checkout google-locator
 checkout star-finder
