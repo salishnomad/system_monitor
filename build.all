@@ -4,7 +4,6 @@ echo Setting env
 echo Step 1 - Checkout
 ./checkout.sh
 #
-echo Checkout completed
 cp build.gradle olivsoft
 cp gradle.properties olivsoft
 cp settings.gradle olivsoft
