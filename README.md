@@ -32,3 +32,5 @@ or
 $ cd olivsoft
 $ gradle :weatherwizard:run
 </pre>
+
+You might see some exceptions in the console, <b>this is expected</b>. It comes from some config files not found (created on exit), or from some resources on the net that cannot be reached if you are behind a firewall...
