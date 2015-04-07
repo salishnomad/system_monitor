@@ -26,7 +26,7 @@ Receiving objects: 100% (254/254), 20.87 MiB | 984.00 KiB/s, done.
 Resolving deltas: 100% (146/146), done.
 Checking connectivity... done
 
-olediour@OLEDIOUR-LAP /d/OlivSoft.git
+oliv@OLIV-LAP /path.to/OlivSoft.git
 <b>$ cd oliv-soft-project-builder/</b>
 
 oliv@OLIV-LAP /path.to/OlivSoft.git/oliv-soft-project-builder (master)
