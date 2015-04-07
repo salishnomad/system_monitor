@@ -32,5 +32,3 @@ or
 $ cd olivsoft
 $ gradle :weatherwizard:run
 </pre>
-
-The run of the Weather Wizard will give you a bunch of error message, this is because there is no config directory yet.
