@@ -14,3 +14,4 @@ echo Now building
 gradle build
 # Copying archives
 find . -name *-1.0.jar -print -exec cp {} ./build/libs \;
+
