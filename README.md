@@ -16,7 +16,10 @@ Welcome to Git (version 1.8.4-preview20130916)
 Run 'git help git' to display the help index.
 Run 'git help <command>' to display help for specific commands.
 
-oliv@OLIV-LAP /path.to/OlivSoft.git/oliv-soft-project-builder (master)
+oliv@OLIV-LAP /path.to/OlivSoft.git
+$ git clone https://github.com/OlivierLD/oliv-soft-project-builder.git
+$ cd oliv-soft-project-builder
+
 $ ./build.all
 </pre>
 
