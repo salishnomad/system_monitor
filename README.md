@@ -21,3 +21,16 @@ $ ./build.all
 </pre>
 
 Note: If a proxy is required, set it in `gradle.properties`.
+
+If the build process went well, you can try to run:
+<pre>
+$ cd olivsoft
+$ gradle :navigation-desktop:run
+</pre>
+or 
+<pre>
+$ cd olivsoft
+$ gradle :weatherwizard:run
+</pre>
+
+The run of the Weather Wizard will give you a bunch of error message, this is because there is no config directory yet.
