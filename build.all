@@ -1,6 +1,18 @@
 #!/bin/bash
 echo Setting env
 . ./set.gradle.env
+#
+echo -n Do you need a proxy ? [n]\|y \> 
+read resp
+PROXY=$resp
+if [ "$PROXY" = "y" ]
+then
+  ./proxy.set
+  mv gradle.properties.backup gradle.properties
+else
+  ./proxy.unset
+  mv gradle.properties gradle.properties.backup
+fi
 echo Step 1 - Checkout
 ./checkout.sh
 #
