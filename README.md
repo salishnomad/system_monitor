@@ -58,7 +58,7 @@ OS:           Windows 7 6.1 amd64
 
 Step 1 - Checkout
 Checking out javanmeaparser...
-....
+[....]
 
 BUILD SUCCESSFUL
 
