@@ -69,15 +69,17 @@ oliv@OLIV-LAP /path.to/OlivSoft.git/oliv-soft-project-builder (master)
 $
 </pre>
 
-Note: If a proxy is required, set it in `gradle.properties`.
+<b>Note</b>: If a proxy is required, set it in `gradle.properties`.
 
 If the build process went well, you can try to run:
 <pre>
+$ . ./set.gradle.env
 $ cd olivsoft
 $ gradle :navigation-desktop:run
 </pre>
 or 
 <pre>
+$ . ./set.gradle.env
 $ cd olivsoft
 $ gradle :weatherwizard:run
 </pre>
