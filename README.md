@@ -30,6 +30,7 @@ Checking connectivity... done
 oliv@OLIV-LAP /path.to/OlivSoft.git
 <b>$ cd oliv-soft-project-builder/
 $ chmod +x set.gradle.env
+$ chmod +x checkout.sh
 $ chmod +x build.all
 $ chmod +x proxy.*</b>
 
