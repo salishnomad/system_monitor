@@ -12,7 +12,7 @@ else
   ./proxy.unset
 fi
 echo Step 1 - Checkout
- ./checkout.sh
+# ./checkout.sh
 #
 cp build.gradle olivsoft
 cp gradle.properties olivsoft
@@ -21,12 +21,18 @@ cd olivsoft
 if [ "$PROXY" = "y" ]
 then
 # find . -name build.gradle -print 
-  find . -name build.gradle -print -exec sed 's/\/\/ant.setproxy/ant.setproxy/g' {} \;
-  sed 's/\/\/ant.setproxy/ant.setproxy/g' ./build.gradle
+  find . -name build.gradle -print -exec sed -i 's/\/\/ant.setproxy/ant.setproxy/g' {} \;
+  sed -i 's/\/\/ant.setproxy/ant.setproxy/g' ./build.gradle
+  find -type f -name "gradle.backup" | while read f; do 
+    mv "$f" "${f/.backup/.properties}";
+  done
 else
 # find . -name build.gradle -print
-  find . -name build.gradle -print -exec sed 's/ant.setproxy/\/\/ant.setproxy/g' {} \;
-  sed 's/ant.setproxy/\/\/ant.setproxy/g' ./build.gradle
+  find . -name build.gradle -print -exec sed -i 's/ant.setproxy/\/\/ant.setproxy/g' {} \;
+  sed -i 's/ant.setproxy/\/\/ant.setproxy/g' ./build.gradle
+  find -type f -name "gradle.properties" | while read f; do 
+    mv "$f" "${f/.properties/.backup}";
+  done
 fi 
 #
 echo JAVA_HOME is currently $JAVA_HOME
