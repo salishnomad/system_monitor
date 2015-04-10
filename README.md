@@ -28,7 +28,10 @@ Resolving deltas: 100% (146/146), done.
 Checking connectivity... done
 
 oliv@OLIV-LAP /path.to/OlivSoft.git
-<b>$ cd oliv-soft-project-builder/</b>
+<b>$ cd oliv-soft-project-builder/
+$ chmod +x set.gradle.env
+$ chmod +x build.all
+$ chmod +x proxy.*</b>
 
 oliv@OLIV-LAP /path.to/OlivSoft.git/oliv-soft-project-builder (master)
 <b>$ cat set.gradle.env</b>
