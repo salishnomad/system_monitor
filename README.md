@@ -28,7 +28,11 @@ Resolving deltas: 100% (146/146), done.
 Checking connectivity... done
 
 oliv@OLIV-LAP /path.to/OlivSoft.git
-<b>$ cd oliv-soft-project-builder/</b>
+<b>$ cd oliv-soft-project-builder/
+$ chmod +x set.gradle.env
+$ chmod +x checkout.sh
+$ chmod +x build.all
+$ chmod +x proxy.*</b>
 
 oliv@OLIV-LAP /path.to/OlivSoft.git/oliv-soft-project-builder (master)
 <b>$ cat set.gradle.env</b>
@@ -69,15 +73,17 @@ oliv@OLIV-LAP /path.to/OlivSoft.git/oliv-soft-project-builder (master)
 $
 </pre>
 
-Note: If a proxy is required, set it in `gradle.properties`.
+<b>Note</b>: If a proxy is required, set it in `gradle.properties`.
 
 If the build process went well, you can try to run:
 <pre>
+$ . ./set.gradle.env
 $ cd olivsoft
 $ gradle :navigation-desktop:run
 </pre>
 or 
 <pre>
+$ . ./set.gradle.env
 $ cd olivsoft
 $ gradle :weatherwizard:run
 </pre>
