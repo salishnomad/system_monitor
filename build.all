@@ -1,0 +1,42 @@
+#!/bin/bash
+echo Setting env
+. ./set.gradle.env
+#
+echo -n Do you need a proxy ? [n]\|y \>  
+read resp
+PROXY=$resp
+if [ "$PROXY" = "y" ]
+then
+  ./proxy.set
+else
+  ./proxy.unset
+fi
+echo Step 1 - Checkout
+./checkout.sh
+#
+cp build.gradle olivsoft
+cp gradle.properties olivsoft
+cp settings.gradle olivsoft
+cd olivsoft
+if [ "$PROXY" = "y" ]
+then
+# find . -name build.gradle -print 
+  find . -name build.gradle -print -exec sed -i 's/\/\/ant.setproxy/ant.setproxy/g' {} \;
+  sed -i 's/\/\/ant.setproxy/ant.setproxy/g' ./build.gradle
+  find -type f -name "gradle.backup" | while read f; do
+    mv "$f" "${f/.backup/.properties}";
+  done
+else
+# find . -name build.gradle -print
+  find . -name build.gradle -print -exec sed -i 's/ant.setproxy/\/\/ant.setproxy/g' {} \;
+  sed -i 's/ant.setproxy/\/\/ant.setproxy/g' ./build.gradle
+  find -type f -name "gradle.properties" | while read f; do
+    mv "$f" "${f/.properties/.backup}";
+  done
+fi 
+#
+echo JAVA_HOME is currently $JAVA_HOME
+echo Now building
+gradle build
+# Copying archives
+# find . -name *-1.0.jar -print -exec cp {} ./build/libs \;
