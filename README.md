@@ -39,7 +39,7 @@ oliv@OLIV-LAP /path.to/OlivSoft.git/oliv-soft-project-builder (master)
 #!/bin/bash
 export JAVA_HOME=/d/Java/jdk1.7.0_45
 echo Gradle Env is set.
-gradle --version
+./gradlew --version
 </pre>
 If you are behind a firewall, you will need a proxy. Set it in the file named `gradle.properties`.
 <pre>
