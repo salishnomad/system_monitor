@@ -41,7 +41,7 @@ export JAVA_HOME=/d/Java/jdk1.7.0_45
 echo Gradle Env is set.
 ./gradlew --version
 </pre>
-If you are behind a firewall, you will need a proxy. Set it in the file named `gradle.properties`.
+<b>Note</b>: If you are behind a firewall, you will need a proxy. Set it in the file named `gradle.properties`.
 <pre>
 oliv@OLIV-LAP /path.to/OlivSoft.git/oliv-soft-project-builder (master)
 <b>$ ./build.all</b>
@@ -74,8 +74,6 @@ Total time: 36.317 secs
 oliv@OLIV-LAP /path.to/OlivSoft.git/oliv-soft-project-builder (master)
 $
 </pre>
-
-<b>Note</b>: If a proxy is required, set it in `gradle.properties`, before running `build.all`.
 
 If the build process went well, you can try to run:
 <pre>
