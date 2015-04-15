@@ -23,7 +23,9 @@ export proxyHost proxyPort
 echo Setting env
 . ./set.gradle.env
 #
+echo -----------------
 echo Step 1 - Checkout
+echo -----------------
 ./checkout.sh
 #
 cp build.gradle olivsoft
@@ -54,7 +56,9 @@ then
   exit 1
 fi  
 echo JAVA_HOME is currently $JAVA_HOME
+echo ---------------------
 echo Step 2 - Now building
+echo ---------------------
 ../gradlew build
 # Copying archives
 # find . -name *-1.0.jar -print -exec cp {} ./build/libs \;
