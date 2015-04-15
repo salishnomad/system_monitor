@@ -1,7 +1,7 @@
 ![project-builder](./build.system.jpg "Project Builder") 
 # oliv-soft-project-builder
 This project will help you to build the Weather Wizard and the Navigation Desktop.
-- It requires Gradle and Java
+- It requires Gradle and Java. Gradle will be downloaded and installed if missing.
 
 You obviously need git (ie on Windows, you need the git bash tool).
 
@@ -32,32 +32,34 @@ oliv@OLIV-LAP /path.to/OlivSoft.git
 $ chmod +x set.gradle.env
 $ chmod +x checkout.sh
 $ chmod +x build.all
-$ chmod +x proxy.*</b>
+$ chmod +x gradlew</b>
 
 oliv@OLIV-LAP /path.to/OlivSoft.git/oliv-soft-project-builder (master)
 <b>$ cat set.gradle.env</b>
 #!/bin/bash
-export PATH=/d/gradle-1.9/bin:$PATH
 export JAVA_HOME=/d/Java/jdk1.7.0_45
 echo Gradle Env is set.
 gradle --version
-
+</pre>
+If you are behind a firewall, you will need a proxy. Set it in the file named `gradle.properties`.
+<pre>
 oliv@OLIV-LAP /path.to/OlivSoft.git/oliv-soft-project-builder (master)
 <b>$ ./build.all</b>
+Do you need a proxy (say n if you don't know) ? [n]|y >n
+Unsetting git proxies
 Setting env
 Gradle Env is set.
 
 ------------------------------------------------------------
-Gradle 1.9
+Gradle 2.3
 ------------------------------------------------------------
 
-Build time:   2013-11-19 08:20:02 UTC
+Build time:   2015-02-16 05:09:33 UTC
 Build number: none
-Revision:     7970ec3503b4f5767ee1c1c69f8b4186c4763e3d
+Revision:     586be72bf6e3df1ee7676d1f2a3afd9157341274
 
-Groovy:       1.8.6
-Ant:          Apache Ant(TM) version 1.9.2 compiled on July 8 2013
-Ivy:          2.2.0
+Groovy:       2.3.9
+Ant:          Apache Ant(TM) version 1.9.3 compiled on December 23 2013
 JVM:          1.7.0_45 (Oracle Corporation 24.45-b08)
 OS:           Windows 7 6.1 amd64
 
