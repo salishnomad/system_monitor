@@ -3,7 +3,7 @@
 This project will help you to build the Weather Wizard and the Navigation Desktop.
 - It requires Gradle and Java. Gradle will be downloaded and installed if missing.
 
-You obviously need git (ie on Windows, you need the git bash tool).
+You obviously need [https://help.github.com/articles/set-up-git/](git) (ie on Windows, you need the git bash tool).
 
 To proceed:
 
