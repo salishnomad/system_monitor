@@ -73,7 +73,7 @@ oliv@OLIV-LAP /path.to/OlivSoft.git/oliv-soft-project-builder (master)
 $
 </pre>
 
-<b>Note</b>: If a proxy is required, set it in `gradle.properties`.
+<b>Note</b>: If a proxy is required, set it in `gradle.properties`, before running `build.all`.
 
 If the build process went well, you can try to run:
 <pre>
