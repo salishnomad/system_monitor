@@ -1,16 +1,28 @@
 #!/bin/bash
-echo Setting env
-. ./set.gradle.env
-#
-echo -n Do you need a proxy ? [n]\|y \>  
+echo -n Do you need a proxy \(say n if you don\'t know\) ? [n]\|y \>  
 read resp
 PROXY=$resp
 if [ "$PROXY" = "y" ]
 then
-  ./proxy.set
+  . ./gradle.properties  
+# ./proxy.set
+  echo Setting git proxies to http://$proxyHost:$proxyPort
+  git config --global http.proxy http://$proxyHost:$proxyPort
+  git config --global https.proxy http://$proxyHost:$proxyPort
 else
-  ./proxy.unset
+  proxyHost=
+  proxyPort=
+# ./proxy.unset
+  echo Unsetting git proxies
+  git config --global --unset http.proxy
+  git config --global --unset https.proxy
 fi
+#
+export proxyHost proxyPort
+#
+echo Setting env
+. ./set.gradle.env
+#
 echo Step 1 - Checkout
 ./checkout.sh
 #
@@ -35,8 +47,14 @@ else
   done
 fi 
 #
+if [ "$JAVA_HOME" = "" ]
+then
+  echo JAVA_HOME is not set.
+  echo Please modify the file set.gradle.env
+  exit 1
+fi  
 echo JAVA_HOME is currently $JAVA_HOME
-echo Now building
-gradle build
+echo Step 2 - Now building
+../gradlew build
 # Copying archives
 # find . -name *-1.0.jar -print -exec cp {} ./build/libs \;
