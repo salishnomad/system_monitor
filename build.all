@@ -1,5 +1,5 @@
 #!/bin/bash
-echo -n Do you need a proxy \(say n if you don\'t know\) ? [n]\|y \>  
+echo -n "Do you need a proxy \(say n if you don\'t know\) ? [n]\|y \> "
 read resp
 PROXY=$resp
 if [ "$PROXY" = "y" ]
