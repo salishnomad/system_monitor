@@ -3,7 +3,7 @@ compileJava.options.encoding = 'ISO-8859-1'
 apply plugin: 'maven'
 
 group = 'oliv.cool.stuff'
-version = '1.0'
+version = '3.0.1.5'
 
 def userprofile = System.getenv()['USERPROFILE'] // On Windows...
 ant.setproxy(proxyhost: "$proxyHost", proxyport: "$proxyPort") //, proxyuser="user", proxypassword="password") 
