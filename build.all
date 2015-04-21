@@ -1,5 +1,5 @@
 #!/bin/bash
-echo -n "Do you need a proxy \(say n if you don\'t know\) ? [n]\|y \> "
+echo -n "Do you need a proxy (say n if you don't know) ? [n]|y > "
 read resp
 PROXY=$resp
 if [ "$PROXY" = "y" ]
@@ -26,7 +26,7 @@ echo Setting env
 echo -----------------
 echo Step 1 - Checkout
 echo -----------------
-./checkout.sh
+# ./checkout.sh
 #
 cp build.gradle olivsoft
 cp gradle.properties olivsoft
